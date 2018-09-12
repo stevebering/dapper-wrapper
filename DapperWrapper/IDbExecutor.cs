@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 
-namespace DapperWrapper
+namespace  DapperWrapper
 {
     public interface IDbExecutor : IDisposable
     {
@@ -26,6 +27,27 @@ namespace DapperWrapper
             object param = null,
             IDbTransaction transaction = null,
             bool buffered = true,
+            int? commandTimeout = default(int?),
+            CommandType? commandType = default(CommandType?));
+
+        Task<IEnumerable<T>> QueryAsync<T>(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            int? commandTimeout = default(int?),
+            CommandType? commandType = default(CommandType?));
+
+        Task<int> ExecuteAsync(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            int? commandTimeout = default(int?),
+            CommandType? commandType = default(CommandType?));
+
+        Task<IEnumerable<object>> QueryAsync(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
             int? commandTimeout = default(int?),
             CommandType? commandType = default(CommandType?));
     }
